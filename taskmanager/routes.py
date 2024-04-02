@@ -10,7 +10,8 @@ def home():
 
 @app.route("/categories")
 def categories():
-    return render_template("categories.html")
+    categories = list(Category.query.order_by(Category.category_name).all())
+    return render_template("categories.html", categories=categories) #1st categories is ref to categories.html, 2nd is the variable name of the function in the line above
 
 
 @app.route("/add_category", methods=["GET", "POST"])
