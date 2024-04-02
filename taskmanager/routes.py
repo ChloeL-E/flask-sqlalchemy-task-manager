@@ -12,8 +12,6 @@ def home():
 def categories():
     categories = list(Category.query.order_by(Category.category_name).all())
     return render_template("categories.html", categories=categories)
-# 1st categories is ref to categories.html, 2nd is
-# the variable name of the function in the line above
 
 
 @app.route("/add_category", methods=["GET", "POST"])
@@ -25,6 +23,7 @@ def add_category():
         return redirect(url_for("categories"))
     return render_template("add_category.html")
 
+
 @app.route("/edit_category/<int:category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
     category = Category.query.get_or_404(category_id)
@@ -34,12 +33,14 @@ def edit_category(category_id):
         return redirect(url_for("categories"))
     return render_template("edit_category.html", category=category)
 
+
 @app.route("/delete_category/<int:category_id>")
 def delete_category(category_id):
     category = Category.query.get_or_404(category_id)
     db.session.delete(category)
     db.session.commit()
     return redirect(url_for("categories"))
+
 
 @app.route("/add_task", methods=["GET", "POST"])
 def add_task():
